@@ -6,18 +6,21 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:03:47 by lcorinna          #+#    #+#             */
-/*   Updated: 2021/11/13 18:24:02 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:58:04 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *r)
+size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
 	i = 0;
-	while (r[i])
-		i++;
+	if (str != NULL)
+	{
+		while (str[i])
+			i++;
+	}
 	return (i);
 }
