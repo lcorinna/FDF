@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:10:01 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/17 18:35:45 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:06:24 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,24 @@ char	*ft_gfl_fdf(char *str, int fd)
 	return (str);
 }
 
-char	**ft_read_fdf(char *file, char **arr, int fd, t_data *data)
+int	ft_read_fdf(char *file, t_data *data)
 {
 	char	*one_line;
+	int		fd;
 
 	one_line = NULL;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
-		return (ft_return_char_with_error(1, 0));
+		return (ft_return_close_with_error(1, 0));
 	one_line = ft_gfl_fdf(one_line, fd);
 	if (one_line == NULL)
-		return (ft_return_char_with_error(2, fd));
-	arr = ft_split(one_line, '\n');
+		return (ft_return_close_with_error(2, fd));
+	data->arr = ft_split(one_line, '\n');
 	free(one_line);
-	if (arr == NULL)
-		return (ft_return_char_with_error(3, fd));
-	if (ft_chek_str(arr, data))
-		return (NULL);
+	if (data->arr == NULL)
+		return (ft_return_close_with_error(3, fd));
+	if (ft_chek_str(data))
+		return (ft_return_close_with_error(0, fd));
 	close (fd);
-	return (arr);
+	return (0);
 }

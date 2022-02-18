@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:49:10 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/17 17:54:55 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/18 19:30:43 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_return_null(char *str, char *buf, int flag)
 	return (NULL);
 }
 
-char	**ft_return_char_with_error(int flag, int fd)
+int	ft_return_close_with_error(int flag, int fd)
 {
 	if (flag == 1)
 		ft_putstr_fd("The file could not be opened, fd is \"-1\"\n", 2);
@@ -44,32 +44,53 @@ char	**ft_return_char_with_error(int flag, int fd)
 		ft_putstr_fd("\"Split\" chose the dark side\n", 2);
 	if (fd != 0)
 		close (fd);
-	return (NULL);
+	return (1);
 }
 
-int	ft_clean_char_arr(char **conv, char **arr)
+int	ft_clean_char_arr(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (conv != NULL)
+	if (data->conv != NULL)
 	{
-		while (conv[i])
+		while (data->conv[i])
 		{
-			free(conv[i]);
+			free(data->conv[i]);
 			i++;
 		}
-		free(conv);
+		free(data->conv);
 	}
-	i = 0;
-	if (arr != NULL)
+	if (data->arr != NULL)
 	{
-		while (arr[i])
+		i = 0;
+		while (data->arr[i])
 		{
-			free(arr[i]);
+			free(data->arr[i]);
 			i++;
 		}
-		free(arr);
+		free(data->arr);
 	}
+	return (1);
+}
+
+int	ft_clean_struct(t_data *data, int flag)
+{
+	free(data->map[0]);
+	while (data->i != -1)
+	{
+		free(data->map[data->i]);
+		data->i--;
+	}
+	free(data->map);
+	data->map = NULL;
+	ft_clean_char_arr(data);
+	if (flag == 1)
+		ft_putstr_fd("During the creation of structures, \"malloc\" \
+		did not allocate memory\n", 2);
+	else if (flag == 2)
+		ft_putstr_fd("Incorrect height in the map\n", 2);	
+	else if (flag == 3)
+		ft_putstr_fd("Wrong color on the map\n", 2);
 	return (1);
 }

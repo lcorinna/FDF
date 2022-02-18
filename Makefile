@@ -6,17 +6,17 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 17:44:49 by lcorinna          #+#    #+#              #
-#    Updated: 2022/02/17 18:04:21 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/02/18 18:01:36 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_PIPEX = fdf
 
-PIPEX = fdf.c exit.c pars.c checks.c struck.c
+PIPEX = fdf.c exit.c pars.c checks.c struct.c htoi.c
 
 OBJ_PIPEX = $(PIPEX:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g #Leaks --atExit -- ./fdf map.fdf
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g #Leaks --atExit -- ./fdf map.fdf
 
 PATH_LIBFT = ./libft/
 

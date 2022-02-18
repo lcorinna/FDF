@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:38:21 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/17 18:52:49 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:07:22 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,48 @@ int	ft_counting_spaces(char *str)
 	return (size);
 }
 
-int	ft_chek_on_size(char **arr, t_data *data)
+int	ft_chek_on_size(t_data *data)
 {
-	int	j;
+	int	i;
 	int	size;
 	int	standard;
 
 	size = 0;
 	standard = 0;
-	if (arr[1] == NULL)
+	if (data->arr[1] == NULL)
 		return (1);
-	standard = ft_counting_spaces(arr[0]);
-	j = 1;
-	while (arr[j])
+	standard = ft_counting_spaces(data->arr[0]);
+	i = 1;
+	while (data->arr[i])
 	{
-		size = ft_counting_spaces(arr[j]);
+		size = ft_counting_spaces(data->arr[i]);
 		if (standard != size)
 			return (1);
-		j++;
+		i++;
 	}
-	data->height = j;
+	data->height = i;
 	data->width = 1 + standard;
 	return (0);
 }
 
-int	ft_chek_str(char **arr, t_data *data)
+int	ft_chek_str(t_data *data)
 {
-	if (ft_chek_on_size(arr, data))
+	int	i;
+
+	if (ft_chek_on_size(data))
+	{
+		if (data->arr != NULL)
+		{
+			i = 0;
+			while (data->arr[i] != NULL)
+			{
+				free(data->arr[i]);
+				i++;
+			}
+			free(data->arr);
+			data->arr = NULL;
+		}
 		return (ft_return_int_with_error(3));
+	}
 	return (0);
 }
