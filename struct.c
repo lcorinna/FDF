@@ -6,11 +6,27 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:25:35 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/18 19:35:27 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:56:49 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_django_unchained(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (data->conv != NULL)
+	{
+		while (data->conv[i])
+		{
+			free(data->conv[i]);
+			i++;
+		}
+		free(data->conv);
+	}
+}
 
 int	ft_validation(t_data *data)
 {
@@ -31,28 +47,12 @@ int	ft_validation(t_data *data)
 		if (data->map[data->i][j].color == 255255256)
 			return (ft_clean_struct(data, 3));
 		else if (data->conv[j][pass] == '\0')
-			data->map[data->i][j].color = 255255255;
-		printf("\n%d\n", data->map[data->i][j].height); //del
-		printf("%d\n", data->map[data->i][j].color); //del
+			data->map[data->i][j].color = 16777215;
+		printf("\nheight %d\n", data->map[data->i][j].height); //del
+		printf("color %d\n", data->map[data->i][j].color); //del
 		j++;
 	}
 	return (0);
-}
-
-void	ft_django_unchained(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->conv != NULL)
-	{
-		while (data->conv[i])
-		{
-			free(data->conv[i]);
-			i++;
-		}
-		free(data->conv);
-	}
 }
 
 int	ft_creating_structures(t_data *data)

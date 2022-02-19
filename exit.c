@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:49:10 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/18 19:30:43 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/19 13:51:16 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int	ft_clean_char_arr(t_data *data)
 
 int	ft_clean_struct(t_data *data, int flag)
 {
-	free(data->map[0]);
 	while (data->i != -1)
 	{
 		free(data->map[data->i]);
@@ -89,7 +88,7 @@ int	ft_clean_struct(t_data *data, int flag)
 		ft_putstr_fd("During the creation of structures, \"malloc\" \
 		did not allocate memory\n", 2);
 	else if (flag == 2)
-		ft_putstr_fd("Incorrect height in the map\n", 2);	
+		ft_putstr_fd("Incorrect height in the map\n", 2);
 	else if (flag == 3)
 		ft_putstr_fd("Wrong color on the map\n", 2);
 	return (1);

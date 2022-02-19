@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:28:51 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/18 19:34:38 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:56:18 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 
 # include <stdio.h> //printf
+# include <math.h> //printf
 # include <fcntl.h>
 
 typedef struct s_elem
@@ -57,5 +58,10 @@ int			ft_validation(t_data *data);
 void		ft_django_unchained(t_data *data);
 
 int			ft_htoi_fdf(char *s);
+void		ft_hex_to_dec(char *str, int *dec);
+void		ft_part_hex_to_dec(int *dec, int j, char c);
+int			ft_degree(int i);
+long long	ft_check_on_hex(char *str);
+
 
 #endif
