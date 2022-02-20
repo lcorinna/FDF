@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:28:51 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/19 17:56:18 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/20 19:15:05 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include "libft/libft.h"
 
 # include <stdio.h> //printf
-# include <math.h> //printf
+# include <mlx.h>
+# include <math.h>
 # include <fcntl.h>
 
 typedef struct s_elem
@@ -26,6 +27,14 @@ typedef struct s_elem
 	int	xyj;
 }	t_elem;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*window;
+	int		x;
+	int		y;
+}	t_mlx;
+
 typedef struct s_data
 {
 	char	**arr;
@@ -34,6 +43,7 @@ typedef struct s_data
 	char	**conv;
 	int		i;
 	t_elem	**map;
+	t_mlx	tmp;
 }	t_data;
 
 int			ft_check_extensions(char *str);
@@ -55,7 +65,7 @@ int			ft_creating_structures(t_data *data);
 long long	ft_number(char *done);
 int			ft_atoi_fdf(char *s);
 int			ft_validation(t_data *data);
-void		ft_django_unchained(t_data *data);
+void		ft_django_unchained(char **arr);
 
 int			ft_htoi_fdf(char *s);
 void		ft_hex_to_dec(char *str, int *dec);
@@ -63,5 +73,6 @@ void		ft_part_hex_to_dec(int *dec, int j, char c);
 int			ft_degree(int i);
 long long	ft_check_on_hex(char *str);
 
+int			ft_draw(t_data *data);
 
 #endif

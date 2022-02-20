@@ -6,25 +6,25 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:25:35 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/19 17:56:49 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/20 10:59:14 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_django_unchained(t_data *data)
+void	ft_django_unchained(char **arr)
 {
 	int	i;
 
 	i = 0;
-	if (data->conv != NULL)
+	if (arr != NULL)
 	{
-		while (data->conv[i])
+		while (arr[i])
 		{
-			free(data->conv[i]);
+			free(arr[i]);
 			i++;
 		}
-		free(data->conv);
+		free(arr);
 	}
 }
 
@@ -72,9 +72,10 @@ int	ft_creating_structures(t_data *data)
 			return (ft_clean_struct(data, 1));
 		if (ft_validation(data))
 			return (1);
-		ft_django_unchained(data);
+		ft_django_unchained(data->conv);
 		data->i++;
 	}
+	ft_django_unchained(data->arr);
 	return (0);
 }
 

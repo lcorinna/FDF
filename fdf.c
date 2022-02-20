@@ -6,11 +6,24 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:27:43 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/19 13:39:16 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/20 16:01:22 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_clear_struct(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i != data->height)
+	{
+		free(data->map[i]);
+		i++;
+	}
+	free(data->map);
+}
 
 int	main(int argc, char **argv)
 {
@@ -30,6 +43,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (ft_creating_structures(&data))
 		return (1);
-	free(data.map);
+	if (ft_draw(&data))
+		return (1);
+	ft_clear_struct(&data);
 	return (0);
 }
