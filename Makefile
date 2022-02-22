@@ -6,17 +6,17 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 17:44:49 by lcorinna          #+#    #+#              #
-#    Updated: 2022/02/20 16:08:10 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/02/22 18:50:56 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_FDF = fdf
 
-FDF = fdf.c exit.c pars.c checks.c struct.c htoi.c draw.c
+FDF = fdf.c exit.c pars.c checks.c struct.c htoi.c draw.c drawline.c
 
 OBJ_FDF = $(FDF:.c=.o)
 
-CFLAG_MLX = -lmlx -framework OpenGL -framework AppKit
+FLAG_MLX = -lmlx -framework OpenGL -framework AppKit
 
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g #Leaks --atExit -- ./fdf map.fdf
 
@@ -31,7 +31,7 @@ libmake:
 	cp $(PATH_LIBFT)$(LIBFT) $(LIBFT)
 		
 $(NAME_FDF): $(OBJ_FDF)
-	gcc $(CFLAGS) $(CFLAG_MLX) $(LIBFT) $(OBJ_FDF) -o $@
+	gcc $(CFLAGS) $(FLAG_MLX) $(LIBFT) $(OBJ_FDF) -o $@
 
 %.o: %.c fdf.h Makefile
 	gcc $(CFLAGS) -c $< -o $@	

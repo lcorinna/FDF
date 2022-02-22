@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:25:35 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/20 10:59:14 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:14:55 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_django_unchained(char **arr)
 			i++;
 		}
 		free(arr);
+		arr = NULL;
 	}
 }
 
@@ -48,8 +49,8 @@ int	ft_validation(t_data *data)
 			return (ft_clean_struct(data, 3));
 		else if (data->conv[j][pass] == '\0')
 			data->map[data->i][j].color = 16777215;
-		printf("\nheight %d\n", data->map[data->i][j].height); //del
-		printf("color %d\n", data->map[data->i][j].color); //del
+		// printf("\nheight %d\n", data->map[data->i][j].height); //del
+		// printf("color %d\n", data->map[data->i][j].color); //del
 		j++;
 	}
 	return (0);
@@ -67,7 +68,6 @@ int	ft_creating_structures(t_data *data)
 		if (data->conv == NULL)
 			return (ft_clean_char_arr(data));
 		data->map[data->i] = malloc(sizeof(t_elem) * (data->width));
-		data->map[data->i]->xyj = 5;
 		if (data->map[data->i] == NULL)
 			return (ft_clean_struct(data, 1));
 		if (ft_validation(data))

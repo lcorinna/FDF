@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:10:01 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/18 17:06:24 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:40:54 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,18 @@ char	*ft_gfl_fdf(char *str, int fd)
 	int		rd;
 
 	rd = 1;
-	while (rd == 1)
+	while (rd)
 	{
-		buf = (char *) malloc(sizeof (char *) * 2);
+		buf = (char *) malloc(sizeof (char *) * 5000);
 		if (buf == NULL)
 			return (NULL);
-		rd = read(fd, buf, 1);
-		buf[1] = '\0';
-		if (rd != 1)
+		rd = read(fd, buf, 4999);
+		buf[rd] = '\0';
+		if (rd == -1)
 			ft_return_null(NULL, buf, 0);
-		if (rd == 1)
-		{
-			if (buf[0] == '\0')
-				rd = 0;
-			str = ft_strjoin_fdf(str, buf);
-			if (str == NULL)
-				return (ft_return_null(str, NULL, 1));
-		}
+		str = ft_strjoin_fdf(str, buf);
+		if (str == NULL)
+			return (ft_return_null(str, NULL, 1));
 	}
 	return (str);
 }

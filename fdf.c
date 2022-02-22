@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:27:43 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/20 16:01:22 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:14:16 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	data.arr = NULL;
 	if (argc > 2 || argc < 2)
 		return (ft_return_int_with_error(1));
 	if (ft_check_extensions(argv[1]))
@@ -43,7 +42,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (ft_creating_structures(&data))
 		return (1);
-	if (ft_draw(&data))
+	if (ft_draw(&data, argv[1]))
 		return (1);
 	ft_clear_struct(&data);
 	return (0);

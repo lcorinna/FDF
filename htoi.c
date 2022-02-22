@@ -6,32 +6,11 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:08:02 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/19 17:55:12 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:35:39 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-long long	ft_check_on_hex(char *str)
-{
-	int	i;
-	int	bingo;
-
-	i = 0;
-	bingo = 0;
-	while (str[i])
-	{
-		if ((str[i] >= 0 && str[i] <= 47) || (str[i] >= 58 && str[i] <= 96) \
-		|| (str[i] >= 103 && str[i] <= 127))
-			return (1);
-		if (str[i] == '0')
-			bingo++;
-		i++;
-	}
-	if (bingo == 6)
-		return (1);
-	return (0);
-}
 
 int	ft_degree(int i)
 {
@@ -93,7 +72,7 @@ int	ft_htoi_fdf(char *s)
 	int	i;
 
 	i = 0;
-	if ((s[0] != '0' && s[1] != 'x') || (ft_strlen(s) != 8))
+	if ((s[0] != '0' && s[1] != 'x')) //|| (ft_strlen(s) != 8)
 		return (255255256);
 	if (ft_check_on_hex(s + 2))
 		return (255255256);

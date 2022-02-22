@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:38:21 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/18 17:07:22 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:15:35 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,22 +78,35 @@ int	ft_chek_on_size(t_data *data)
 
 int	ft_chek_str(t_data *data)
 {
-	int	i;
-
 	if (ft_chek_on_size(data))
 	{
-		if (data->arr != NULL)
-		{
-			i = 0;
-			while (data->arr[i] != NULL)
-			{
-				free(data->arr[i]);
-				i++;
-			}
-			free(data->arr);
-			data->arr = NULL;
-		}
+		ft_django_unchained(data->arr);
 		return (ft_return_int_with_error(3));
 	}
+	if (data->height == 1)
+		return (ft_return_int_with_error(3));
+	if (data->width == 1)
+		return (ft_return_int_with_error(3));
+	return (0);
+}
+
+long long	ft_check_on_hex(char *str)
+{
+	int	i;
+	int	bingo;
+
+	i = 0;
+	bingo = 0;
+	while (str[i])
+	{
+		if ((str[i] >= 0 && str[i] <= 47) || (str[i] >= 58 && str[i] <= 64) \
+		|| (str[i] >= 71 && str[i] <= 96) || (str[i] >= 103 && str[i] <= 127))
+			return (1);
+		if (str[i] == '0')
+			bingo++;
+		i++;
+	}
+	if (bingo == 6)
+		return (1);
 	return (0);
 }

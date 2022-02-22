@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:28:51 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/20 19:15:05 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/22 19:05:32 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 
+# define ZOOM 10 //del
 # include <stdio.h> //printf
 # include <mlx.h>
 # include <math.h>
@@ -24,16 +25,36 @@ typedef struct s_elem
 {
 	int	height;
 	int	color;
-	int	xyj;
 }	t_elem;
 
 typedef struct s_mlx
 {
 	void	*mlx;
-	void	*window;
+	void	*win;
 	int		x;
 	int		y;
 }	t_mlx;
+
+typedef struct s_pix
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_pix;
+
+typedef struct s_drawLine
+{
+	int	delta_x;
+	int	delta_y;
+	int	sign_x;
+	int	sign_x3;
+	int	sign_y;
+	int	sign_y3;
+	int	error;
+	int	error2;
+}	t_drawLine;
 
 typedef struct s_data
 {
@@ -42,14 +63,17 @@ typedef struct s_data
 	int		height;
 	char	**conv;
 	int		i;
+	int		st;
 	t_elem	**map;
 	t_mlx	tmp;
+	t_pix	img;
 }	t_data;
 
 int			ft_check_extensions(char *str);
 int			ft_counting_spaces(char *str);
 int			ft_chek_on_size(t_data *data);
 int			ft_chek_str(t_data *data);
+long long	ft_check_on_hex(char *str);
 
 int			ft_return_int_with_error(int flag);
 char		*ft_return_null(char *str, char *buf, int flag);
@@ -71,8 +95,13 @@ int			ft_htoi_fdf(char *s);
 void		ft_hex_to_dec(char *str, int *dec);
 void		ft_part_hex_to_dec(int *dec, int j, char c);
 int			ft_degree(int i);
-long long	ft_check_on_hex(char *str);
 
-int			ft_draw(t_data *data);
+int			ft_draw(t_data *data, char *name);
+void		ft_size_step(t_data *data);
+void		my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data);
+
+void		ft_draw_x(t_data *data);
+void		ft_draw_y(t_data *data);
+void		ft_drawLine(int x1, int y1, int x2, int y2, t_data *data);
 
 #endif
