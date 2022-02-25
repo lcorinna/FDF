@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:28:51 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/22 19:05:32 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:17:41 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft/libft.h"
 
-# define ZOOM 10 //del
 # include <stdio.h> //printf
 # include <mlx.h>
 # include <math.h>
@@ -33,6 +32,8 @@ typedef struct s_mlx
 	void	*win;
 	int		x;
 	int		y;
+	int		shift_x;
+	int		shift_y;
 }	t_mlx;
 
 typedef struct s_pix
@@ -44,23 +45,26 @@ typedef struct s_pix
 	int		endian;
 }	t_pix;
 
-typedef struct s_drawLine
+typedef struct s_drawline
 {
-	int	delta_x;
-	int	delta_y;
-	int	sign_x;
-	int	sign_x3;
-	int	sign_y;
-	int	sign_y3;
-	int	error;
-	int	error2;
-}	t_drawLine;
+	float	x1;
+	float	x2;
+	float	y1;
+	float	y2;
+	int		z1;
+	int		z2;
+	float	max;
+	float	x_step;
+	float	y_step;
+}	t_drawline;
 
 typedef struct s_data
 {
 	char	**arr;
 	int		width;
 	int		height;
+	int		shift_x;
+	int		shift_y;
 	char	**conv;
 	int		i;
 	int		st;
@@ -97,11 +101,13 @@ void		ft_part_hex_to_dec(int *dec, int j, char c);
 int			ft_degree(int i);
 
 int			ft_draw(t_data *data, char *name);
-void		ft_size_step(t_data *data);
-void		my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data);
+// void		ft_size_step(t_data *data);
+// void		my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data);
+void		ft_brasenham(float x1, float y1, float x2, float y2, t_data *data);
 
-void		ft_draw_x(t_data *data);
-void		ft_draw_y(t_data *data);
-void		ft_drawLine(int x1, int y1, int x2, int y2, t_data *data);
+// void		ft_draw_x(t_data *data);
+// void		ft_draw_y(t_data *data);
+void		ft_drawline(t_data *data);
+// void		ft_drawline_branch(t_drawline *params, t_data *data);
 
 #endif

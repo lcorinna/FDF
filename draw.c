@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 16:00:12 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/22 19:40:33 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/25 19:26:50 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,76 +16,12 @@ void	ft_size_step(t_data *data)
 {
 	int	step[2];
 
-	step[0] = 1910 / (data->width - 1);
-	step[1] = 1070 / (data->height - 1);
+	step[0] = 1920 / (data->width - 1);
+	step[1] = 1080 / (data->height - 1);
 	data->st = step[0];
 	if (data->st > step[1])
 		data->st = step[1];
 	printf("data->step - %d\n", data->st); //del
-}
-
-void	ft_drawLine_x(int x1, int y1, int x2, int y2, t_data *data) //x1 y1 x2 y2
-{
-	t_drawLine	params;
-
-	if (x1 < x2) //x1 < x2
-		params.sign_x = 1;
-	else if (x1 > x2) //x1 > x2
-		params.sign_x = -1;
-	if (y1 < y2) //y1 < y2
-		params.sign_y = 1;
-	else if (y1 > y2) //y1 < y2
-		params.sign_y = -1;
-	params.delta_x = abs(x2 - x1); //x2 - x1
-	params.delta_y = abs(y2 - y1); //y2 - y1
-	params.error = params.delta_x - params.delta_y;
-	params.error2 = params.error * 2;
-	while (x1 != x2 || y1 != y2) //x1 != x2 || y1 != y2
-	{
-		my_mlx_pixel_put(&data->img, x1, y1, data); //x1 y1
-		if (params.error2 > -params.delta_y)
-		{
-			params.error -= params.delta_y;
-			x1 += params.sign_x; //x1
-		}
-		if (params.error2 < params.delta_x)
-		{
-			params.error += params.delta_x;
-			y1 += params.sign_y; //y1
-		}
-	}
-}
-
-void	ft_drawLine_y(int x1, int y1, int x2, int y2, t_data *data) //x1 y1 x2 y2
-{
-	t_drawLine	params;
-
-	if (x1 < x2) //x1 < x2
-		params.sign_x = 1;
-	else if (x1 > x2) //x1 > x2
-		params.sign_x = -1;
-	if (y1 < y2) //y1 < y2
-		params.sign_y = 1;
-	else if (y1 > y2) //y1 < y2
-		params.sign_y = -1;
-	params.delta_x = abs(x2 - x1); //x2 - x1
-	params.delta_y = abs(y2 - y1); //y2 - y1
-	params.error = params.delta_x - params.delta_y;
-	params.error2 = params.error * 2;
-	while (x1 != x2 || y1 != y2) //x1 != x2 || y1 != y2
-	{
-		my_mlx_pixel_put(&data->img, x1, y1, data); //x1 y1
-		if (params.error2 > -params.delta_y)
-		{
-			params.error -= params.delta_y;
-			x1 += params.sign_x; //x1
-		}
-		if (params.error2 < params.delta_x)
-		{
-			params.error += params.delta_x;
-			y1 += params.sign_y; //y1
-		}
-	}
 }
 
 void	my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data)
@@ -96,18 +32,47 @@ void	my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data)
 	*(unsigned int *)dst = data->map[data->tmp.y][data->tmp.x].color;
 }
 
+int	ft_buttons(int key, t_data *data)
+{
+	if (key == 53)
+	{
+		mlx_destroy_window(data->tmp.mlx, data->tmp.win);
+		exit (0); //del
+	}
+	else if (key >= 123 && key <= 126)
+	{
+		if (key == 126)
+			data->shift_y -= 10;
+		else if (key == 125)
+			data->shift_y += 10;
+		else if (key == 123)
+			data->shift_x -= 10;
+		else if (key == 124)
+			data->shift_x += 10;
+		mlx_clear_window(data->tmp.mlx, data->tmp.win); //удалить при повороте
+		ft_drawline(data);
+	}
+	else if (key >= 0 && key <= 273)
+		key++;
+	else
+		exit (0); //del
+	return (0);
+}
+
 int	ft_draw(t_data *data, char *name)
 {
 	ft_size_step(data);
+	data->shift_x = 700;
+	data->shift_y = 300;
 	data->tmp.mlx = mlx_init(); //запуск движка (программа для графики)
 	data->tmp.win = mlx_new_window(data->tmp.mlx, 1920, 1080, name); //окно
 	data->img.img = mlx_new_image(data->tmp.mlx, 1920, 1080); //создать картинку
 	data->img.addr = mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-	ft_draw_x(data);
-	ft_draw_y(data);
-	// mlx_clear_window(data->tmp.mlx, data->tmp.win); //удалить при повороте
 	mlx_put_image_to_window(data->tmp.mlx, data->tmp.win, data->img.img, 0, 0);
+	ft_drawline(data);
+	mlx_hook(data->tmp.win, 17, (1L << 0), ft_buttons, data);
+	mlx_hook(data->tmp.win, 2, (1L << 0), ft_buttons, data);
 	mlx_loop(data->tmp.mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:08:02 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/22 18:35:39 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:24:20 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void	ft_hex_to_dec(char *str, int *dec)
 
 	i = 0;
 	j = 5;
+	if (ft_strlen(str) == 8)
+		i = 2;
+	else
+		j = (ft_strlen(str) - 1);
 	while (str[i])
 	{
 		if (str[i] >= 'a' && str[i] <= 'f')
@@ -72,7 +76,7 @@ int	ft_htoi_fdf(char *s)
 	int	i;
 
 	i = 0;
-	if ((s[0] != '0' && s[1] != 'x')) //|| (ft_strlen(s) != 8)
+	if ((s[0] != '0' && s[1] != 'x'))
 		return (255255256);
 	if (ft_check_on_hex(s + 2))
 		return (255255256);

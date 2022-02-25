@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:38:21 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/22 19:15:35 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:16:46 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	ft_counting_spaces(char *str)
 
 	i = 0;
 	size = 0;
+	while ((str[i] == ' ' && str[i + 1] != '\0'))
+		i++;
 	while (str[i])
 	{
 		if (str[i] == ' ' && str[i + 1] != '\0')
@@ -94,9 +96,13 @@ long long	ft_check_on_hex(char *str)
 {
 	int	i;
 	int	bingo;
+	int	len;
 
 	i = 0;
 	bingo = 0;
+	len = ft_strlen(str);
+	if (len == 8)
+		i = 2;
 	while (str[i])
 	{
 		if ((str[i] >= 0 && str[i] <= 47) || (str[i] >= 58 && str[i] <= 64) \
@@ -106,7 +112,7 @@ long long	ft_check_on_hex(char *str)
 			bingo++;
 		i++;
 	}
-	if (bingo == 6)
+	if (len == 8 && bingo == 6)
 		return (1);
 	return (0);
 }
