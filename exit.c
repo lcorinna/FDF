@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 18:49:10 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/19 13:51:16 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:59:42 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	ft_return_close_with_error(int flag, int fd)
 		ft_putstr_fd("\"GNL\" got sick, and we were counting on him\n", 2);
 	else if (flag == 3)
 		ft_putstr_fd("\"Split\" chose the dark side\n", 2);
+	else if (flag == 4)
+		ft_putstr_fd("Empty map\n", 2);
 	if (fd != 0)
 		close (fd);
 	return (1);

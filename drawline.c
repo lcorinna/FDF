@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:38:43 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/25 19:31:40 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:11:53 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,64 +18,66 @@ void	ft_isometric(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.8) - z;
 }
 
-void	ft_brasenham(float x1, float y1, float x2, float y2, t_data *data)
+void	ft_take_step(float *x2, float *y2, t_data *data)
 {
-	double	x_step;
-	double	y_step;
-	double	max;
-	int		z1;
-	int		z2;
-	int 	color;
+	data->draw.x1 *= data->tmp.st;
+	data->draw.y1 *= data->tmp.st;
+	*x2 *= data->tmp.st;
+	*y2 *= data->tmp.st;
+}
 
-	z1 = data->map[(int)y1][(int)x1].height;
-	z2 = data->map[(int)y2][(int)x2].height;
-	color = data->map[(int)y1][(int)x1].color;
+void	ft_moving(float *x2, float *y2, t_data *data)
+{
+	data->draw.x1 += data->tmp.shift_x;
+	data->draw.y1 += data->tmp.shift_y;
+	*x2 += data->tmp.shift_x;
+	*y2 += data->tmp.shift_y;
+}
 
-	x1 *= data->st;
-	y1 *= data->st;
-	x2 *= data->st;
-	y2 *= data->st;
-
-	ft_isometric(&x1, &y1, z1);
-	ft_isometric(&x2, &y2, z2);
-
-	x1 += data->shift_x;
-	y1 += data->shift_y;
-	x2 += data->shift_x;
-	y2 += data->shift_y;
-
-	x_step = x2 - x1;
-	y_step = y2 - y1;
-	max = fmax(fabs(x_step), fabs(y_step));
-	x_step /= max;
-	y_step /= max;
-	while ((int)(x1 - x2) || (int)(y1 - y2))
+void	ft_brasenham(float x2, float y2, t_data *data)
+{
+	data->draw.z2 = data->map[(int)y2][(int)x2].height;
+	ft_take_step(&x2, &y2, data);
+	ft_isometric(&data->draw.x1, &data->draw.y1, data->draw.z1);
+	ft_isometric(&x2, &y2, data->draw.z2);
+	ft_moving(&x2, &y2, data);
+	data->draw.x_step = x2 - data->draw.x1 ;
+	data->draw.y_step = y2 - data->draw.y1;
+	data->draw.max = fmax(fabs(data->draw.x_step), fabs(data->draw.y_step));
+	data->draw.x_step /= data->draw.max;
+	data->draw.y_step /= data->draw.max;
+	while ((int)(data->draw.x1 - x2) || (int)(data->draw.y1 - y2))
 	{
-		if (x1 < 0 || x1 > 1919 || y1 < 0 || y1 > 1079)
+		if (data->draw.x1 < 0 || data->draw.x1 > WIDTH \
+		|| data->draw.y1 < 0 || data->draw.y1 > HEIGHT)
 			return ;
-		mlx_pixel_put(data->tmp.mlx, data->tmp.win, x1, y1, color);
-		x1 += x_step;
-		y1 += y_step;
+		mlx_pixel_put(data->tmp.mlx, data->tmp.win, data->draw.x1, \
+		data->draw.y1, data->draw.color);
+		data->draw.x1 += data->draw.x_step;
+		data->draw.y1 += data->draw.y_step;
 	}
 }
 
 void	ft_drawline(t_data *data)
 {
-	int	x1;
-	int	y1;
-
-	y1 = 0;
-	while (y1 < data->height)
+	data->tmp.y = 0;
+	while (data->tmp.y < data->height)
 	{
-		x1 = 0;
-		while (x1 < data->width)
+		data->tmp.x = 0;
+		while (data->tmp.x < data->width)
 		{
-			if (x1 < data->width - 1)
-				ft_brasenham(x1, y1, x1 + 1, y1, data);
-			if (y1 < data->height - 1)
-				ft_brasenham(x1, y1, x1, y1 + 1, data);
-			x1++;
+			data->draw.z1 = data->map[data->tmp.y][data->tmp.x].height;
+			data->draw.color = data->map[data->tmp.y][data->tmp.x].color;
+			data->draw.x1 = (float)data->tmp.x;
+			data->draw.y1 = (float)data->tmp.y;
+			if (data->tmp.x < data->width - 1)
+				ft_brasenham(data->tmp.x + 1, data->tmp.y, data);
+			data->draw.x1 = (float)data->tmp.x;
+			data->draw.y1 = (float)data->tmp.y;
+			if (data->tmp.y < data->height - 1)
+				ft_brasenham(data->tmp.x, data->tmp.y + 1, data);
+			data->tmp.x++;
 		}
-		y1++;
+		data->tmp.y++;
 	}	
 }

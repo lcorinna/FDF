@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 17:08:02 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/25 14:24:20 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/26 13:38:21 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ int	ft_degree(int i)
 
 void	ft_part_hex_to_dec(int *dec, int j, char c)
 {
-	if (c == 'a')
+	if (c == 'a' || c == 'A')
 		*dec += 10 * ft_degree(j);
-	else if (c == 'b')
+	else if (c == 'b' || c == 'B')
 		*dec += 11 * ft_degree(j);
-	else if (c == 'c')
+	else if (c == 'c' || c == 'C')
 		*dec += 12 * ft_degree(j);
-	else if (c == 'd')
+	else if (c == 'd' || c == 'D')
 		*dec += 13 * ft_degree(j);
-	else if (c == 'e')
+	else if (c == 'e' || c == 'E')
 		*dec += 14 * ft_degree(j);
-	else if (c == 'f')
+	else if (c == 'f' || c == 'F')
 		*dec += 15 * ft_degree(j);
 }
 
@@ -57,7 +57,8 @@ void	ft_hex_to_dec(char *str, int *dec)
 		j = (ft_strlen(str) - 1);
 	while (str[i])
 	{
-		if (str[i] >= 'a' && str[i] <= 'f')
+		if ((str[i] >= 'a' && str[i] <= 'f') \
+		|| (str[i] >= 'A' && str[i] <= 'F'))
 			ft_part_hex_to_dec(dec, j, str[i]);
 		else if (str[i] == '0')
 			*dec += 0;

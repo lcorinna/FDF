@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 13:25:35 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/25 14:02:52 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/26 15:46:30 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	ft_validation(t_data *data)
 			return (ft_clean_struct(data, 3));
 		else if (data->conv[j][pass] == '\0')
 			data->map[data->i][j].color = 16777215;
-		// printf("\nheight %d\n", data->map[data->i][j].height); //del
-		// printf("color %d\n", data->map[data->i][j].color); //del
 		j++;
 	}
 	return (0);

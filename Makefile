@@ -6,7 +6,7 @@
 #    By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/14 17:44:49 by lcorinna          #+#    #+#              #
-#    Updated: 2022/02/25 14:54:07 by lcorinna         ###   ########.fr        #
+#    Updated: 2022/02/26 15:50:48 by lcorinna         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ_FDF = $(FDF:.c=.o)
 
 FLAG_MLX = -lmlx -framework OpenGL -framework AppKit
 
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g #Leaks --atExit -- ./fdf map.fdf
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g #Leaks --atExit -- ./fdf map.fdf
 
 PATH_LIBFT = ./libft/
 

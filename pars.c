@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 13:10:01 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/21 17:40:54 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:58:21 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int	ft_read_fdf(char *file, t_data *data)
 	one_line = ft_gfl_fdf(one_line, fd);
 	if (one_line == NULL)
 		return (ft_return_close_with_error(2, fd));
+	if (ft_strlen(one_line) == 0)
+	{
+		free(one_line);
+		return (ft_return_close_with_error(4, fd));
+	}
 	data->arr = ft_split(one_line, '\n');
 	free(one_line);
 	if (data->arr == NULL)
