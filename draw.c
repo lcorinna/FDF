@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 16:00:12 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/26 16:32:54 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/27 18:08:23 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ void	ft_size_step(t_data *data)
 	data->tmp.shift_y = 150;
 }
 
-void	my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data)
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = data->map[data->tmp.y][data->tmp.x].color;
+	dst = data->img.addr + (y * data->img.line_length + x * \
+												(data->img.bits_per_pixel / 8));
+	*(unsigned int *) dst = color;
 }
 
 void	ft_program_completion(t_data *data)
@@ -75,12 +76,8 @@ int	ft_draw(t_data *data, char *name)
 	data->tmp.win = mlx_new_window(data->tmp.mlx, WIDTH, HEIGHT, name);
 	if (data->tmp.win == NULL)
 		return (1);
-	data->img.img = mlx_new_image(data->tmp.mlx, WIDTH, HEIGHT);
-	if (data->img.img == NULL)
-		return (1);
 	data->img.addr = mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-	mlx_put_image_to_window(data->tmp.mlx, data->tmp.win, data->img.img, 0, 0);
 	ft_drawline(data);
 	mlx_hook(data->tmp.win, 2, (1L << 0), ft_buttons, data);
 	mlx_hook(data->tmp.win, 17, (1L << 0), ft_buttons, data);

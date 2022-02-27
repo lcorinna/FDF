@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:27:43 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/26 16:51:21 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/27 17:11:14 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ int	ft_clear_arr_struct(t_data *data, int flag)
 		ft_putstr_fd("An error occurred when filling in an array of structures. \
 		\nInhale, exhale and try again, by the way, \
 		I freed up all allocated memory.\n", 2);
-	if (flag == 2)
+	else if (flag == 2)
 		ft_putstr_fd("Who wrote the MLX library?\nIt doesn't work\n", 2);
+	else if (flag == 3)
+	{
+		ft_putstr_fd("Who wrote the MLX library?\nIt doesn't work\n", 2);
+		exit (1);
+	}
 	if (flag > 0)
 		return (1);
 	else

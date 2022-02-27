@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:38:43 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/26 16:11:53 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/27 18:06:37 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_brasenham(float x2, float y2, t_data *data)
 		if (data->draw.x1 < 0 || data->draw.x1 > WIDTH \
 		|| data->draw.y1 < 0 || data->draw.y1 > HEIGHT)
 			return ;
-		mlx_pixel_put(data->tmp.mlx, data->tmp.win, data->draw.x1, \
+		my_mlx_pixel_put(data, data->draw.x1, \
 		data->draw.y1, data->draw.color);
 		data->draw.x1 += data->draw.x_step;
 		data->draw.y1 += data->draw.y_step;
@@ -61,6 +61,11 @@ void	ft_brasenham(float x2, float y2, t_data *data)
 void	ft_drawline(t_data *data)
 {
 	data->tmp.y = 0;
+	data->img.img = mlx_new_image(data->tmp.mlx, WIDTH, HEIGHT);
+	if (data->img.img == NULL)
+		ft_clear_arr_struct(data, 3);
+	data->img.addr = mlx_get_data_addr(data->img.img, \
+	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	while (data->tmp.y < data->height)
 	{
 		data->tmp.x = 0;
@@ -80,4 +85,6 @@ void	ft_drawline(t_data *data)
 		}
 		data->tmp.y++;
 	}	
+	mlx_put_image_to_window(data->tmp.mlx, data->tmp.win, data->img.img, 0, 0);
+	mlx_destroy_image(data->img.img, data->img.addr);
 }

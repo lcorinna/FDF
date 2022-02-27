@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 17:28:51 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/26 16:50:17 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/02/27 17:03:56 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			ft_degree(int i);
 
 void		ft_size_step(t_data *data);
 int			ft_draw(t_data *data, char *name);
-void		my_mlx_pixel_put(t_pix *img, int x, int y, t_data *data);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		ft_program_completion(t_data *data);
 int			ft_buttons(int key, t_data *data);
 
