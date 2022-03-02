@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:38:43 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/27 18:06:37 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:05:21 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ void	ft_brasenham(float x2, float y2, t_data *data)
 {
 	data->draw.z2 = data->map[(int)y2][(int)x2].height;
 	ft_take_step(&x2, &y2, data);
-	ft_isometric(&data->draw.x1, &data->draw.y1, data->draw.z1);
-	ft_isometric(&x2, &y2, data->draw.z2);
+	if (data->i == 2)
+	{
+		ft_isometric(&data->draw.x1, &data->draw.y1, data->draw.z1);
+		ft_isometric(&x2, &y2, data->draw.z2);
+	}
 	ft_moving(&x2, &y2, data);
 	data->draw.x_step = x2 - data->draw.x1 ;
 	data->draw.y_step = y2 - data->draw.y1;

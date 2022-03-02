@@ -6,7 +6,7 @@
 /*   By: lcorinna <lcorinna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 16:00:12 by lcorinna          #+#    #+#             */
-/*   Updated: 2022/02/27 18:08:23 by lcorinna         ###   ########.fr       */
+/*   Updated: 2022/03/02 12:08:46 by lcorinna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,16 @@ void	ft_program_completion(t_data *data)
 
 int	ft_buttons(int key, t_data *data)
 {
-	if (key == 53)
+	if (key == 18 || key == 19)
+	{
+		mlx_clear_window(data->tmp.mlx, data->tmp.win);
+		if (key == 18)
+			data->i = 1;
+		else if (key == 19)
+			data->i = 2;
+		ft_drawline(data);
+	}
+	else if (key == 53)
 	{
 		mlx_destroy_window(data->tmp.mlx, data->tmp.win);
 		ft_program_completion(data);
@@ -78,6 +87,7 @@ int	ft_draw(t_data *data, char *name)
 		return (1);
 	data->img.addr = mlx_get_data_addr(data->img.img, \
 	&data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
+	data->i = 2;
 	ft_drawline(data);
 	mlx_hook(data->tmp.win, 2, (1L << 0), ft_buttons, data);
 	mlx_hook(data->tmp.win, 17, (1L << 0), ft_buttons, data);
